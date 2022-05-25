@@ -1,0 +1,86 @@
+[
+  {
+    "id": 0,
+    "name": "Caixa de Canetas",
+    "picture": "images/canetas.png",
+    "price": 6.00,
+    "brand": "BIC - Cristal"
+  },
+  {
+    "id": 1,
+    "name": "Caixa de Lápis",
+    "picture": "images/lapis.jpg",
+    "price": 15.20,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": 2,
+    "name": "Borracha",
+    "picture": "images/borracha.jpg",
+    "price": 0.50,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": 3,
+    "name": "Papel A4",
+    "picture": "images/folha.jpg",
+    "price": 29.90,
+    "brand": "Chamex"
+  },
+  {
+    "id": 4,
+    "name": "Estojo",
+    "picture": "images/estojo.jpeg",
+    "price": 12.90,
+    "brand": ""
+  },
+  {
+    "id": 5,
+    "name": "Caderno 10 matérias",
+    "picture": "images/caderno.jpg",
+    "price": 30.7,
+    "brand": "Tilibra" 
+  },
+  {
+    "id": 6,
+    "name": "Caderno Loki",
+    "picture": "images/loki.jpeg",
+    "price": 26.9,
+    "brand": "Tilibra"
+  },
+  {
+    "id": 7,
+    "name": "Corretivo de Fita",
+    "picture": "images/corretivo.jpg",
+    "price": 11,
+    "brand": "Faber-Castell"
+  },
+  {
+    "id": 8,
+    "name": "Mochila infantil",
+    "picture": "images/mochila.jpeg",
+    "price": 329.90,
+    "brand": "Maxtoy"
+  },
+  {
+    "id": 9,
+    "name": "Cola Branca",
+    "picture": "images/cola.jpeg",
+    "price": 7.00,
+    "brand": "Pritt"
+  },
+  {
+    "id": 10,
+    "name": "Tesoura",
+    "picture": "images/tesoura.jpeg",
+    "price": 16.00,
+    "brand": "Mondial"
+  },
+  {
+    "id": 11,
+    "name": "Livro infantil",
+    "picture": "images/livro.jpeg",
+    "price": 23.00,
+    "brand": "Ciranda Cultural"
+  }
+]

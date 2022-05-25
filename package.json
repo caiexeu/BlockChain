@@ -1,5 +1,5 @@
 {
-  "name": "pet-shop",
+  "name": "product-shop",
   "version": "1.0.0",
   "description": "",
   "main": "truffle.js",
@@ -14,5 +14,16 @@
   "license": "ISC",
   "devDependencies": {
     "lite-server": "^2.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PlayerGhost/marketplace-smart-contract.git"
+  },
+  "bugs": {
+    "url": "https://github.com/PlayerGhost/marketplace-smart-contract/issues"
+  },
+  "homepage": "https://github.com/PlayerGhost/marketplace-smart-contract#readme",
+  "dependencies": {
+    "truffle": "^5.5.15"
   }
 }
