@@ -112,6 +112,16 @@ var App = {
 
       App.initProductsOwners()
 
+      //debug
+      //App.getTotalSoldInEth()
+      // console.log("getProductsSoldCount", App.getProductsSoldCount())
+      //const eth = await App.getTotalSoldInEth()
+      //console.log("eth", eth)
+
+      App.getTotalSoldInEth().then(data => {
+        console.log("getProductsSoldCounteth", data)
+      })
+
       return App.markBought()
     })
 
@@ -300,6 +310,60 @@ var App = {
   addProductData: function (productId, productData) {
     console.log()
     set(ref(App.firebaseDB, '/productsData/' + productId), productData)
+  },
+
+  getProductsBuyers: async function () {
+    var marketplaceInstance
+    var productsBuyers = null
+
+    await App.contracts.Marketplace.deployed().then(function (instance) {
+      marketplaceInstance = instance
+
+      return marketplaceInstance.getBuyers.call()
+    }).then(function (buyers) {
+      productsBuyers = buyers
+    }).catch(function (err) {
+      console.log(err.message)
+    })
+
+    return productsBuyers
+  },
+
+  getProductsSoldCount: async function () {
+    var marketplaceInstance
+    var count = 0
+
+    await App.contracts.Marketplace.deployed().then(function (instance) {
+      marketplaceInstance = instance
+
+      return marketplaceInstance.getBuyers.call()
+    }).then(function (buyers) {
+
+      for (var i = 0; i < buyers.length; i++) {
+        if (buyers[i] !== "0x0000000000000000000000000000000000000000") {
+          count++
+        }
+      }
+    }).catch(function (err) {
+      console.log(err.message)
+    })
+
+    return count
+  },
+
+  getTotalSoldInEth: async function () {
+    var buyers = await App.getProductsBuyers()
+    var productsData = await App.getProductsData()
+
+    var totalSoldInETH = 0
+
+    for (var i = 0; i < buyers.length; i++) {
+      if (buyers[i] !== "0x0000000000000000000000000000000000000000") {
+        totalSoldInETH += productsData[i].price
+      }
+    }
+
+    return totalSoldInETH
   }
 }
 
