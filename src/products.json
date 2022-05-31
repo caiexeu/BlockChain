@@ -32,14 +32,14 @@
     "name": "Estojo",
     "picture": "images/estojo.jpeg",
     "price": 12.90,
-    "brand": ""
+    "brand": "Chamex"
   },
   {
     "id": 5,
     "name": "Caderno 10 matérias",
     "picture": "images/caderno.jpg",
     "price": 30.7,
-    "brand": "Tilibra" 
+    "brand": "Tilibra"
   },
   {
     "id": 6,

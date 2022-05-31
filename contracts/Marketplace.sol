@@ -1,22 +1,35 @@
 pragma solidity ^0.5.0;
 
 contract Marketplace {
-    address[16] public buyers;
+    address[50] public buyers;
+    address[50] public sellers;
+
+    constructor() public {
+        for (uint256 i = 0; i < 12; i++) {
+            sellers[i] = 0x98DF35D3e2165Cd2EF4B3d5aA15478f3BEad9497;
+        }
+    }
+
+    function getBuyers() public view returns (address[50] memory) {
+        return buyers;
+    }
+
+    function getSellers() public view returns (address[50] memory) {
+        return sellers;
+    }
 
     function buy(uint256 productId) public returns (uint256) {
-        require(productId >= 0 && productId <= 15);
+        require(productId >= 0 && productId <= buyers.length);
 
         buyers[productId] = msg.sender;
 
         return productId;
     }
 
-    function getBuyers() public view returns (address[16] memory) {
-        return buyers;
-    }
+    function addProduct(uint256 productId) public returns (uint256) {
+        require(productId >= 0 && productId <= buyers.length);
 
-    function addProduct() {
-        buyers.push(msg.sender);
+        sellers[productId] = msg.sender;
 
         return productId;
     }
