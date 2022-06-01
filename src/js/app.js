@@ -1,6 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js"
 import { getDatabase, child, ref, get, set } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-database.js"
-//import { database } from 'https://cdnjs.cloudflare.com/ajax/libs/firebase/9.8.2/firebase-database.min.js';
 
 var App = {
   web3Provider: null,
@@ -111,16 +110,7 @@ var App = {
       App.contracts.Marketplace.setProvider(App.web3Provider)
 
       App.initProductsOwners()
-
-      //debug
-      //App.getTotalSoldInEth()
-      // console.log("getProductsSoldCount", App.getProductsSoldCount())
-      //const eth = await App.getTotalSoldInEth()
-      //console.log("eth", eth)
-
-      App.getTotalSoldInEth().then(data => {
-        console.log("getProductsSoldCounteth", data)
-      })
+      App.setDashboardButtonVisibility()
 
       return App.markBought()
     })
@@ -149,6 +139,7 @@ var App = {
   bindEvents: function () {
     $(document).on('click', '.btn-Buy', App.handleBuy)
     $(document).on('click', '.btn-primary', App.addproduct)
+    $(document).on('click', '#dashboardButton', App.fillDashboardData)
   },
 
   markBought: function () {
@@ -260,9 +251,6 @@ var App = {
 
       App.contracts.Marketplace.deployed().then(function (instance) {
         marketplaceInstance = instance
-        console.log("seller hash ", account)
-
-        console.log("seller id ", newProductIndex)
 
         return marketplaceInstance.addProduct(newProductIndex, { from: account })
       }).then(function (result) {
@@ -271,6 +259,49 @@ var App = {
         console.log(err.message)
       })
     })
+  },
+
+  setDashboardButtonVisibility: async function () {
+    web3.eth.getAccounts(function (err, accounts) {
+      if (err) {
+        console.log(err)
+      } else {
+        var account = accounts[0]
+        console.log(account)
+
+        if (account == "0xb536f83f3e4ecc0280a86bb7067af81e3c7ffe4d") {
+          $('#showDashBoardButton').show()
+        } else {
+          $('#showDashBoardButton').hide()
+        }
+      }
+    })
+
+    ethereum.on('accountsChanged', function (accounts) {
+      web3.eth.getAccounts(function (err, accounts) {
+        if (err) {
+          console.log(err)
+        } else {
+          var account = accounts[0]
+
+          if (account == "0xb536f83f3e4ecc0280a86bb7067af81e3c7ffe4d") {
+            $('#showDashBoardButton').show()
+          } else {
+            $('#showDashBoardButton').hide()
+          }
+        }
+      })
+    })
+  },
+
+  fillDashboardData: async function (event) {
+    event.preventDefault()
+
+    var totalSells = await App.getProductsSoldCount()
+    var totalSellsPrice = await App.getTotalSoldInEth()
+
+    $('#totalSells').text(totalSells)
+    $('#totalSellsPrice').text(totalSellsPrice + " ETH")
   },
 
   getProductsData: async function () {
@@ -308,7 +339,6 @@ var App = {
   },
 
   addProductData: function (productId, productData) {
-    console.log()
     set(ref(App.firebaseDB, '/productsData/' + productId), productData)
   },
 

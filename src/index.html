@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="index.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <title>Papelaria - Unifor Blockchain</title>
 
@@ -54,9 +55,67 @@
       </div>
     </div>
   </div>
-  <button class="float" type="button" data-toggle="modal" data-target="#addProduct">
+  <!--<button class="float" type="button" data-toggle="modal" data-target="#addProduct">
     <span class="material-icons">add</span>
-  </button>
+  </button>-->
+
+  <div class="fab-container">
+    <div class="fab fab-icon-holder">
+      <i class="material-icons">menu</i>
+    </div>
+    <ul class="fab-options">
+      <li id="addProductButton">
+        <span class="fab-label">Adicionar Produto</span>
+        <div class="fab-icon-holder" data-toggle="modal" data-target="#addProduct">
+          <i class="material-icons">add</i>
+        </div>
+      </li>
+      <li id="showDashBoardButton">
+        <span class="fab-label">Visualizar Métricas</span>
+        <div class="fab-icon-holder" id="dashboardButton" data-toggle="modal" data-target="#dashboard">
+          <i class="material-icons">analytics</i>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="modal fade" id="dashboard" tabindex="-1" role="dialog" aria-labelledby="dashboardTittle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h3 class="modal-title" id="exampleModalLongTitle">Métricas</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Vendas totais:</h4>
+                  <h6 class="card-title" id="totalSells">0</h6>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Valor total das vendas:</h4>
+                  <h6 class="card-title" id="totalSellsPrice">$0</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="modal" id="addProduct" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
