@@ -1,8 +1,49 @@
+.container-backgroud {
+	background-color: #373637;
+}
+
+.panel-default > .panel-heading {
+	background-color: #5f5f5f !important;
+}
+
+.panel-body {
+	background-color: #373637;
+}
+
 .product-seller {
 	display: inline-block;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	width: 100%;
+}
+
+h1, h3, h4, strong, label{
+	color: white !important;
+}
+
+#newProductImage{
+	color: white;
+}
+
+span {
+	color: white;
+}
+
+.panel-title .panel-title {
+	color: white;
+}
+
+#addProductSubmitButton {
+	width: 100%;
+	margin-top: 2%;
+}
+
+.modal-header {
+	background-color: #5f5f5f;
+}
+
+.modal-body {
+	background-color: #373637;
 }
 
 .float {
@@ -78,7 +119,7 @@
 	width: 50px;
 	height: 50px;
 	border-radius: 100%;
-	background: #016fb9;
+	background: #2a2a2a;
 	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 

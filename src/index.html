@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title>Papelaria - Unifor Blockchain</title>
+  <title>Marketplace - Unifor Blockchain</title>
 
   <!-- Bootstrap -->
   <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -23,38 +23,42 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12 col-sm-8 col-sm-push-2">
-        <h1 class="text-center">Marketplace - Unifor Blockchain</h1>
-        <hr />
-        <br />
+  <div class="container-backgroud">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 col-sm-push-2">
+          <h1 class="text-center">Marketplace - Unifor Blockchain</h1>
+          <hr />
+          <br />
+        </div>
+      </div>
+
+      <div id="productsRow" class="row">
+        <!-- PRODUCTS LOAD HERE -->
       </div>
     </div>
 
-    <div id="productsRow" class="row">
-      <!-- PRODUCTS LOAD HERE -->
-    </div>
-  </div>
-
-  <div id="productTemplate" style="display: none;">
-    <div class="col-sm-6 col-md-4 col-lg-3">
-      <div class="panel panel-default panel-product">
-        <div class="panel-heading">
-          <h3 class="panel-title">Scrappy</h3>
-        </div>
-        <div class="panel-body">
-          <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center" style="width: 100%;"
-            src="https://animalso.com/wp-content/uploads/2017/01/Golden-Retriever_6.jpg" data-holder-rendered="true">
-          <br /><br />
-          <strong>Vendedor</strong>: <span class="product-seller">0x0</span><br />
-          <strong>Marca</strong>: <span class="product-brand">Faber-Castell</span><br />
-          <strong>Preço</strong>: <span class="product-price">3.50</span><br />
-          <button class="btn btn-default btn-Buy" id="addProductSubmitButton" type="button" data-id="0">Comprar</button>
+    <div id="productTemplate" style="display: none;">
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="panel panel-default panel-product" id="productPanel">
+          <div class="panel-heading">
+            <h3 class="panel-title">Scrappy</h3>
+          </div>
+          <div class="panel-body">
+            <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center" style="width: 100%;"
+              src="https://animalso.com/wp-content/uploads/2017/01/Golden-Retriever_6.jpg" data-holder-rendered="true">
+            <br /><br />
+            <strong>Vendedor</strong>: <span class="product-seller">0x0</span><br />
+            <strong>Marca</strong>: <span class="product-brand">Faber-Castell</span><br />
+            <strong>Preço</strong>: <span class="product-price">3.50</span><br />
+            <button class="btn btn-default btn-Buy " id="addProductSubmitButton" type="button"
+              data-id="0">Comprar</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
   <!--<button class="float" type="button" data-toggle="modal" data-target="#addProduct">
     <span class="material-icons">add</span>
   </button>-->
@@ -109,10 +113,6 @@
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
       </div>
     </div>
   </div>
@@ -145,7 +145,7 @@
               <input type="file" id="newProductImage" name="newProductImage"
                 accept="image/png, image/gif, image/jpeg" />
             </div>
-            <button type="button" class="btn btn-primary" id="addProductSubmitButton" data-dismiss="modal"
+            <button type="button" class="btn btn-light" id="addProductSubmitButton" data-dismiss="modal"
               disabled>Adicionar</button>
           </form>
         </div>

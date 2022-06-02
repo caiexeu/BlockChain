@@ -24,9 +24,10 @@ var App = {
     var productsRow = $('#productsRow')
     var productTemplate = $('#productTemplate')
 
-    if (await App.getProductsData() == null) {
+    if (localStorage.getItem("DBInicialized") == null) {
       $.getJSON('../products.json', function (data) {
         App.setProductsData(data)
+        localStorage.setItem("DBInicialized", true)
 
         for (var i = 0; i < data.length; i++) {
           productTemplate.find('.panel-title').text(data[i].name)
@@ -138,7 +139,7 @@ var App = {
 
   bindEvents: function () {
     $(document).on('click', '.btn-Buy', App.handleBuy)
-    $(document).on('click', '.btn-primary', App.addproduct)
+    $(document).on('click', '#addProductSubmitButton', App.addproduct)
     $(document).on('click', '#dashboardButton', App.fillDashboardData)
   },
 
@@ -155,6 +156,26 @@ var App = {
       for (var i = 0; i < buyers.length; i++) {
         if (buyers[i] !== "0x0000000000000000000000000000000000000000") {
           $('.panel-product').eq(i).find('button').text('Success').attr('disabled', true)
+        }
+      }
+    }).catch(function (err) {
+      console.log(err.message)
+    })
+  },
+
+  markCantBuySelfProduct: async function (hash) {
+    var marketplaceInstance
+
+    App.contracts.Marketplace.deployed().then(function (instance) {
+      marketplaceInstance = instance
+
+      return marketplaceInstance.getSellers.call()
+    }).then(function (sellers) {
+      for (var i = 0; i < sellers.length; i++) {
+        if (sellers[i] == hash) {
+          $('.panel-product').eq(i).find('button').text('Indisponível').attr('disabled', true)
+        } else {
+          $('.panel-product').eq(i).find('button').text('Comprar').attr('disabled', false)
         }
       }
     }).catch(function (err) {
@@ -236,6 +257,7 @@ var App = {
       productTemplate.find('.product-brand').text(brand)
       productTemplate.find('.product-price').text(price)
       productTemplate.find('.btn-Buy').attr('data-id', newProductIndex)
+      productTemplate.find('.btn-Buy').text('Indisponível').attr('disabled', true)
 
       productsRow.append(productTemplate.html())
     }
@@ -267,7 +289,8 @@ var App = {
         console.log(err)
       } else {
         var account = accounts[0]
-        console.log(account)
+
+        App.markCantBuySelfProduct(account)
 
         if (account == "0xb536f83f3e4ecc0280a86bb7067af81e3c7ffe4d") {
           $('#showDashBoardButton').show()
@@ -283,6 +306,8 @@ var App = {
           console.log(err)
         } else {
           var account = accounts[0]
+
+          App.markCantBuySelfProduct(account)
 
           if (account == "0xb536f83f3e4ecc0280a86bb7067af81e3c7ffe4d") {
             $('#showDashBoardButton').show()
