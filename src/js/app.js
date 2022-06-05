@@ -78,6 +78,8 @@ var App = {
 
     $('input[type="file"]').change(function (e) {
       App.newProductImageFile = e.target.files[0]
+
+      console.log("t ", App.newProductImageFile)
     })
 
     return await App.initWeb3()
@@ -112,8 +114,6 @@ var App = {
 
       App.initProductsOwners()
       App.setDashboardButtonVisibility()
-
-      return App.markBought()
     })
 
     return App.bindEvents()
@@ -141,26 +141,6 @@ var App = {
     $(document).on('click', '.btn-Buy', App.handleBuy)
     $(document).on('click', '#addProductSubmitButton', App.addproduct)
     $(document).on('click', '#dashboardButton', App.fillDashboardData)
-  },
-
-  markBought: function () {
-    var marketplaceInstance
-
-    App.contracts.Marketplace.deployed().then(function (instance) {
-      marketplaceInstance = instance
-
-      return marketplaceInstance.getBuyers.call()
-    }).then(function (buyers) {
-      console.log("buyers", buyers)
-
-      for (var i = 0; i < buyers.length; i++) {
-        if (buyers[i] !== "0x0000000000000000000000000000000000000000") {
-          $('.panel-product').eq(i).find('button').text('Success').attr('disabled', true)
-        }
-      }
-    }).catch(function (err) {
-      console.log(err.message)
-    })
   },
 
   markCantBuySelfProduct: async function (hash) {
@@ -214,9 +194,29 @@ var App = {
       App.contracts.Marketplace.deployed().then(function (instance) {
         marketplaceInstance = instance
 
-        return marketplaceInstance.buy(productId, { from: account })
-      }).then(function (result) {
-        return App.markBought()
+        return marketplaceInstance.getBuyers.call()
+      }).then(function (buyers) {
+
+        var newBuyerIndex
+
+        for (var i = 0; i < buyers[productId][i].length; i++) {
+          if (buyers[productId][i] == "0x0000000000000000000000000000000000000000") {
+            newBuyerIndex = i
+            break
+          }
+        }
+
+        console.log("newBuyerID", productId, newBuyerIndex)
+
+        App.contracts.Marketplace.deployed().then(function (instance) {
+          marketplaceInstance = instance
+
+          return marketplaceInstance.buy(productId, newBuyerIndex, { from: account })
+        }).then(function (result) {
+          console.log(result)
+        }).catch(function (err) {
+          console.log(err.message)
+        })
       }).catch(function (err) {
         console.log(err.message)
       })
@@ -395,8 +395,10 @@ var App = {
     }).then(function (buyers) {
 
       for (var i = 0; i < buyers.length; i++) {
-        if (buyers[i] !== "0x0000000000000000000000000000000000000000") {
-          count++
+        for (var j = 0; j < buyers[i].length; j++) {
+          if (buyers[i][j] !== "0x0000000000000000000000000000000000000000") {
+            count++
+          }
         }
       }
     }).catch(function (err) {
@@ -413,8 +415,10 @@ var App = {
     var totalSoldInETH = 0
 
     for (var i = 0; i < buyers.length; i++) {
-      if (buyers[i] !== "0x0000000000000000000000000000000000000000") {
-        totalSoldInETH += productsData[i].price
+      for (var j = 0; j < buyers[i].length; j++) {
+        if (buyers[i][j] !== "0x0000000000000000000000000000000000000000") {
+          totalSoldInETH += productsData[i].price
+        }
       }
     }
 

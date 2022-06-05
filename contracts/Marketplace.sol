@@ -1,7 +1,7 @@
 pragma solidity ^0.5.0;
 
 contract Marketplace {
-    address[50] public buyers;
+    address[50][50] public buyers;
     address[50] public sellers;
 
     constructor() public {
@@ -10,7 +10,7 @@ contract Marketplace {
         }
     }
 
-    function getBuyers() public view returns (address[50] memory) {
+    function getBuyers() public view returns (address[50][50] memory) {
         return buyers;
     }
 
@@ -18,12 +18,13 @@ contract Marketplace {
         return sellers;
     }
 
-    function buy(uint256 productId) public returns (uint256) {
+    function buy(uint256 productId, uint256 buyerId) public returns (uint256) {
         require(productId >= 0 && productId <= buyers.length);
+        require(buyerId >= 0 && buyerId <= buyers.length);
 
-        buyers[productId] = msg.sender;
+        buyers[productId][buyerId] = msg.sender;
 
-        return productId;
+        return buyerId;
     }
 
     function addProduct(uint256 productId) public returns (uint256) {
